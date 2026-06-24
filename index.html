@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yefferson Bermúdez Palacios — Analista de Datos & Soporte Técnico</title>
+<meta name="description" content="Ingeniero de Sistemas con 8+ años de experiencia en infraestructura crítica, soporte técnico y formación en análisis de datos.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0B1320;
+    --bg-panel: #101B2D;
+    --bg-panel-2: #0D1626;
+    --line: #1F2C42;
+    --amber: #F0A33C;
+    --amber-dim: #8A6326;
+    --green: #3FC68C;
+    --red: #E0594B;
+    --text: #EDEAE3;
+    --text-dim: #8C96A8;
+    --text-faint: #5A6578;
+    --mono: 'JetBrains Mono', monospace;
+    --sans: 'Space Grotesk', sans-serif;
+  }
+
+  *{ box-sizing: border-box; margin:0; padding:0; }
+
+  html{ scroll-behavior: smooth; }
+
+  body{
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body::before{
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 64px 64px;
+    opacity: 0.25;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  a{ color: inherit; }
+
+  .wrap{
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 28px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ---------- TOPBAR ---------- */
+  .topbar{
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    backdrop-filter: blur(10px);
+    background: rgba(11,19,32,0.85);
+    border-bottom: 1px solid var(--line);
+  }
+  .topbar-inner{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding: 16px 28px;
+    max-width: 1080px;
+    margin: 0 auto;
+  }
+  .brand{
+    font-family: var(--mono);
+    font-size: 14px;
+    letter-spacing: 0.04em;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .brand .dot{
+    width:8px; height:8px;
+    border-radius:50%;
+    background: var(--green);
+    box-shadow: 0 0 8px var(--green);
+    animation: pulse 2.4s ease-in-out infinite;
+  }
+  @keyframes pulse{
+    0%,100%{ opacity:1; }
+    50%{ opacity:0.35; }
+  }
+  .nav-links{
+    display:flex;
+    gap:28px;
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--text-dim);
+  }
+  .nav-links a:hover{ color: var(--amber); }
+  @media (max-width: 640px){
+    .nav-links{ display:none; }
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    padding: 100px 0 70px;
+    border-bottom: 1px solid var(--line);
+  }
+  .hero-eyebrow{
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--amber);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    display:flex;
+    align-items:center;
+    gap: 10px;
+  }
+  .hero-eyebrow::before{
+    content:"";
+    width: 24px;
+    height: 1px;
+    background: var(--amber);
+  }
+  .hero h1{
+    font-size: clamp(2.4rem, 5vw, 4rem);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    max-width: 820px;
+    margin-bottom: 24px;
+  }
+  .hero h1 .accent{ color: var(--amber); }
+  .hero p.lede{
+    font-size: 1.1rem;
+    color: var(--text-dim);
+    max-width: 620px;
+    margin-bottom: 40px;
+  }
+  .hero-actions{
+    display:flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-bottom: 64px;
+  }
+  .btn{
+    font-family: var(--mono);
+    font-size: 14px;
+    padding: 13px 24px;
+    border-radius: 4px;
+    cursor:pointer;
+    border: 1px solid transparent;
+    transition: all .15s ease;
+    text-decoration:none;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+  }
+  .btn-primary{
+    background: var(--amber);
+    color: #0B1320;
+    font-weight: 600;
+  }
+  .btn-primary:hover{ background: #ffb455; transform: translateY(-1px); }
+  .btn-ghost{
+    border-color: var(--line);
+    color: var(--text);
+  }
+  .btn-ghost:hover{ border-color: var(--amber-dim); color: var(--amber); }
+
+  /* ---------- METRICS STRIP (monitoring panel signature) ---------- */
+  .metrics{
+    display:grid;
+    grid-template-columns: repeat(4, 1fr);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    overflow: hidden;
+    background: var(--bg-panel);
+  }
+  .metric{
+    padding: 22px 20px;
+    border-right: 1px solid var(--line);
+  }
+  .metric:last-child{ border-right: none; }
+  .metric-label{
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 8px;
+  }
+  .metric-value{
+    font-family: var(--mono);
+    font-size: 1.7rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .metric-value .unit{
+    font-size: 0.95rem;
+    color: var(--text-dim);
+    font-weight: 400;
+  }
+  .metric.status .metric-value{ color: var(--green); font-size: 1.15rem; }
+  @media (max-width: 720px){
+    .metrics{ grid-template-columns: repeat(2, 1fr); }
+    .metric{ border-bottom: 1px solid var(--line); }
+  }
+
+  /* ---------- SECTION SHELL ---------- */
+  section{ padding: 80px 0; border-bottom: 1px solid var(--line); }
+  .section-head{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    margin-bottom: 44px;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .section-tag{
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text-faint);
+  }
+  h2{
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  /* ---------- LOG / BITÁCORA (timeline signature element) ---------- */
+  .log{
+    display:flex;
+    flex-direction: column;
+  }
+  .log-entry{
+    display:grid;
+    grid-template-columns: 110px 22px 1fr;
+    gap: 0 20px;
+    padding: 26px 0;
+    border-top: 1px solid var(--line);
+  }
+  .log-entry:last-child{ border-bottom: 1px solid var(--line); }
+  .log-time{
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text-faint);
+    padding-top: 3px;
+  }
+  .log-marker{
+    display:flex;
+    justify-content:center;
+    position: relative;
+  }
+  .log-marker::before{
+    content:"";
+    position:absolute;
+    top: 18px;
+    bottom: -26px;
+    width: 1px;
+    background: var(--line);
+  }
+  .log-entry:last-child .log-marker::before{ display:none; }
+  .log-marker span{
+    width: 9px; height: 9px;
+    border-radius: 50%;
+    background: var(--bg-panel);
+    border: 2px solid var(--amber);
+    margin-top: 4px;
+  }
+  .log-entry.is-current .log-marker span{
+    background: var(--green);
+    border-color: var(--green);
+    box-shadow: 0 0 0 4px rgba(63,198,140,0.15);
+  }
+  .log-title{
+    font-weight: 600;
+    font-size: 1.05rem;
+    margin-bottom: 4px;
+  }
+  .log-org{
+    font-family: var(--mono);
+    font-size: 12.5px;
+    color: var(--amber);
+    margin-bottom: 10px;
+  }
+  .log-desc{
+    color: var(--text-dim);
+    font-size: 0.95rem;
+    max-width: 560px;
+  }
+  .tag-current{
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--green);
+    border: 1px solid var(--green);
+    border-radius: 3px;
+    padding: 2px 7px;
+    margin-left: 10px;
+    vertical-align: middle;
+  }
+
+  /* ---------- SKILLS GRID ---------- */
+  .skills-grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .skill-card{
+    background: var(--bg-panel);
+    padding: 26px 24px;
+  }
+  .skill-card h3{
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--amber);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 14px;
+  }
+  .skill-card ul{ list-style:none; }
+  .skill-card li{
+    font-size: 0.92rem;
+    color: var(--text-dim);
+    padding: 5px 0;
+    display:flex;
+    align-items:center;
+    gap: 8px;
+  }
+  .skill-card li::before{
+    content:"";
+    width: 4px; height: 4px;
+    background: var(--text-faint);
+    border-radius: 50%;
+    flex-shrink:0;
+  }
+
+  /* ---------- VENTURE BANNER ---------- */
+  .venture{
+    background: var(--bg-panel-2);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 32px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .venture-text h3{
+    font-size: 1.2rem;
+    margin-bottom: 6px;
+  }
+  .venture-text p{
+    color: var(--text-dim);
+    font-size: 0.92rem;
+    max-width: 480px;
+  }
+
+  /* ---------- CONTACT FORM ---------- */
+  .contact-layout{
+    display:grid;
+    grid-template-columns: 1fr 1.3fr;
+    gap: 56px;
+  }
+  @media (max-width: 800px){
+    .contact-layout{ grid-template-columns: 1fr; gap: 40px; }
+  }
+  .contact-info p{
+    color: var(--text-dim);
+    margin-bottom: 28px;
+    max-width: 360px;
+  }
+  .contact-detail{
+    font-family: var(--mono);
+    font-size: 13.5px;
+    margin-bottom: 14px;
+    display:flex;
+    gap: 10px;
+  }
+  .contact-detail .k{ color: var(--text-faint); min-width: 78px; }
+  .contact-detail .v{ color: var(--text); }
+  .contact-detail a:hover{ color: var(--amber); }
+
+  form{ display:flex; flex-direction:column; gap: 16px; }
+  .field label{
+    display:block;
+    font-family: var(--mono);
+    font-size: 11.5px;
+    color: var(--text-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 7px;
+  }
+  .field input, .field textarea{
+    width:100%;
+    background: var(--bg-panel);
+    border: 1px solid var(--line);
+    color: var(--text);
+    padding: 13px 14px;
+    border-radius: 4px;
+    font-family: var(--sans);
+    font-size: 14.5px;
+    resize: vertical;
+    transition: border-color .15s ease;
+  }
+  .field input:focus, .field textarea:focus{
+    outline: none;
+    border-color: var(--amber);
+  }
+  .field textarea{ min-height: 120px; }
+  .form-row{ display:grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 520px){ .form-row{ grid-template-columns: 1fr; } }
+
+  .form-status{
+    font-family: var(--mono);
+    font-size: 13px;
+    padding: 12px 14px;
+    border-radius: 4px;
+    display:none;
+  }
+  .form-status.show{ display:block; }
+  .form-status.ok{ background: rgba(63,198,140,0.1); color: var(--green); border: 1px solid rgba(63,198,140,0.3); }
+  .form-status.err{ background: rgba(224,89,75,0.1); color: var(--red); border: 1px solid rgba(224,89,75,0.3); }
+
+  .submit-btn{
+    align-self: flex-start;
+    background: var(--amber);
+    color: #0B1320;
+    border: none;
+    font-family: var(--mono);
+    font-weight: 600;
+    font-size: 14px;
+    padding: 13px 28px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all .15s ease;
+  }
+  .submit-btn:hover{ background: #ffb455; }
+  .submit-btn:disabled{ opacity: 0.5; cursor: not-allowed; }
+
+  footer{
+    padding: 36px 0;
+    text-align:center;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text-faint);
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="brand"><span class="dot"></span> YBP // SISTEMA-ACTIVO</div>
+    <nav class="nav-links">
+      <a href="#trayectoria">Trayectoria</a>
+      <a href="#habilidades">Habilidades</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="hero-eyebrow">Ingeniero de Sistemas · Buenaventura, Colombia</div>
+    <h1>8 años monitoreando<br>sistemas críticos.<br><span class="accent">Ahora, los datos.</span></h1>
+    <p class="lede">Soy Yefferson Bermúdez Palacios. Pasé casi una década garantizando la disponibilidad continua de infraestructura portuaria 24/7. Hoy aplico esa misma disciplina — documentar, diagnosticar, resolver — al análisis de datos y soporte técnico.</p>
+    <div class="hero-actions">
+      <a href="#contacto" class="btn btn-primary">Hablemos →</a>
+      <a href="/CV_YeffersonBermudez.pdf" class="btn btn-ghost" download>Descargar CV</a>
+    </div>
+
+    <div class="metrics">
+      <div class="metric">
+        <div class="metric-label">Experiencia</div>
+        <div class="metric-value">8<span class="unit"> + años</span></div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">Disponibilidad operada</div>
+        <div class="metric-value">24<span class="unit">/7</span></div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">Formación</div>
+        <div class="metric-value">Ing.<span class="unit"> Sistemas</span></div>
+      </div>
+      <div class="metric status">
+        <div class="metric-label">Estado actual</div>
+        <div class="metric-value">● Bootcamp en curso</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section id="trayectoria">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Bitácora de trayectoria</h2>
+      <span class="section-tag">// registro_eventos.log</span>
+    </div>
+
+    <div class="log">
+      <div class="log-entry is-current">
+        <div class="log-time">2026<br>en curso</div>
+        <div class="log-marker"><span></span></div>
+        <div>
+          <div class="log-title">Bootcamp Análisis de Datos & IA <span class="tag-current">activo</span></div>
+          <div class="log-org">BETEK Cohorte 16 · MAKAIA</div>
+          <div class="log-desc">Formación intensiva en análisis de datos, SQL y dashboards. Proyecto capstone: modelo de datos logístico/portuario con Power BI.</div>
+        </div>
+      </div>
+
+      <div class="log-entry">
+        <div class="log-time">2024<br>presente</div>
+        <div class="log-marker"><span></span></div>
+        <div>
+          <div class="log-title">Técnico en Soporte y Mantenimiento de Equipos</div>
+          <div class="log-org">Independiente · Buenaventura</div>
+          <div class="log-desc">Diagnóstico y resolución de incidencias, instalación y mantenimiento de equipos Windows, atención directa a usuarios en lenguaje no técnico.</div>
+        </div>
+      </div>
+
+      <div class="log-entry">
+        <div class="log-time">2016<br>2024</div>
+        <div class="log-marker"><span></span></div>
+        <div>
+          <div class="log-title">Analista CCTV</div>
+          <div class="log-org">Puerto Industrial Aguadulce · Buenaventura</div>
+          <div class="log-desc">Operación de videovigilancia en instalación portuaria activa 24/7. Registro y seguimiento de incidencias técnicas, reportes como base de conocimiento, cumplimiento estricto de protocolos de seguridad.</div>
+        </div>
+      </div>
+
+      <div class="log-entry">
+        <div class="log-time">2023</div>
+        <div class="log-marker"><span></span></div>
+        <div>
+          <div class="log-title">Desarrollador Frontend — Prácticas Guiadas</div>
+          <div class="log-org">IDFORIDEAS · Remoto</div>
+          <div class="log-desc">Desarrollo de interfaces web con HTML5, CSS y JavaScript en equipo distribuido, bajo metodologías ágiles.</div>
+        </div>
+      </div>
+
+      <div class="log-entry">
+        <div class="log-time">2018<br>2022</div>
+        <div class="log-marker"><span></span></div>
+        <div>
+          <div class="log-title">Ingeniero de Sistemas</div>
+          <div class="log-org">UNAD — Universidad Nacional Abierta y a Distancia</div>
+          <div class="log-desc">Incluye Diplomado de Profundización en Redes Cisco (2021).</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="habilidades">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Panel de habilidades</h2>
+      <span class="section-tag">// capacidades.json</span>
+    </div>
+
+    <div class="skills-grid">
+      <div class="skill-card">
+        <h3>Soporte técnico</h3>
+        <ul>
+          <li>Diagnóstico de fallas</li>
+          <li>Seguimiento de casos / SLA</li>
+          <li>Documentación de soluciones</li>
+        </ul>
+      </div>
+      <div class="skill-card">
+        <h3>Sistemas & redes</h3>
+        <ul>
+          <li>Windows (avanzado)</li>
+          <li>Linux (en formación)</li>
+          <li>Redes Cisco</li>
+        </ul>
+      </div>
+      <div class="skill-card">
+        <h3>Datos</h3>
+        <ul>
+          <li>SQL (en formación)</li>
+          <li>MongoDB</li>
+          <li>Excel avanzado · Power BI</li>
+        </ul>
+      </div>
+      <div class="skill-card">
+        <h3>Web</h3>
+        <ul>
+          <li>HTML5 · CSS3 · JavaScript</li>
+          <li>Git / GitHub</li>
+          <li>Node.js · Express</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="venture">
+      <div class="venture-text">
+        <h3>🚀 CV con Propósito</h3>
+        <p>Mi emprendimiento: hojas de vida ATS, optimización de LinkedIn, logos y páginas web para profesionales en Colombia.</p>
+      </div>
+      <a href="https://conpropositocv.my.canva.site/" target="_blank" class="btn btn-ghost">Conocer más →</a>
+    </div>
+  </div>
+</section>
+
+<section id="contacto" style="border-bottom:none;">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Iniciar contacto</h2>
+      <span class="section-tag">// POST /api/contact</span>
+    </div>
+
+    <div class="contact-layout">
+      <div class="contact-info">
+        <p>¿Tienes una vacante, un proyecto o quieres conversar? Escríbeme directamente o usa el formulario — llega a mi bandeja sin intermediarios.</p>
+        <div class="contact-detail"><span class="k">Email</span><span class="v"><a href="mailto:tomasjefferson26@gmail.com">tomasjefferson26@gmail.com</a></span></div>
+        <div class="contact-detail"><span class="k">WhatsApp</span><span class="v"><a href="https://wa.me/573174512947" target="_blank">+57 317 451 2947</a></span></div>
+        <div class="contact-detail"><span class="k">Ubicación</span><span class="v">Buenaventura, Colombia</span></div>
+        <div class="contact-detail"><span class="k">Modalidad</span><span class="v">Remoto · Híbrido · Presencial</span></div>
+      </div>
+
+      <form id="contact-form">
+        <div class="form-row">
+          <div class="field">
+            <label for="nombre">Nombre</label>
+            <input type="text" id="nombre" name="nombre" required>
+          </div>
+          <div class="field">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+        </div>
+        <div class="field">
+          <label for="empresa">Empresa (opcional)</label>
+          <input type="text" id="empresa" name="empresa">
+        </div>
+        <div class="field">
+          <label for="mensaje">Mensaje</label>
+          <textarea id="mensaje" name="mensaje" required></textarea>
+        </div>
+        <div id="form-status" class="form-status"></div>
+        <button type="submit" class="submit-btn" id="submit-btn">Enviar mensaje</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © 2026 Yefferson Bermúdez Palacios — Buenaventura, Colombia
+</footer>
+
+<script>
+  // Cambia esta URL cuando despliegues el backend (ej. Render)
+  const API_URL = window.API_URL || "http://localhost:3001";
+
+  const form = document.getElementById("contact-form");
+  const statusBox = document.getElementById("form-status");
+  const submitBtn = document.getElementById("submit-btn");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Enviando...";
+    statusBox.className = "form-status";
+
+    const payload = {
+      nombre: document.getElementById("nombre").value,
+      email: document.getElementById("email").value,
+      empresa: document.getElementById("empresa").value,
+      mensaje: document.getElementById("mensaje").value,
+    };
+
+    try {
+      const res = await fetch(`${API_URL}/api/contact`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json();
+
+      if (res.ok && data.ok) {
+        statusBox.textContent = "✓ " + data.mensaje;
+        statusBox.classList.add("show", "ok");
+        form.reset();
+      } else {
+        statusBox.textContent = "✕ " + (data.errores ? data.errores.join(" ") : "Error al enviar.");
+        statusBox.classList.add("show", "err");
+      }
+    } catch (err) {
+      statusBox.textContent = "✕ No se pudo conectar con el servidor. Verifica que el backend esté activo.";
+      statusBox.classList.add("show", "err");
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Enviar mensaje";
+    }
+  });
+</script>
+
+</body>
+</html>
